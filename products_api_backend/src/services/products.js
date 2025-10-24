@@ -120,6 +120,21 @@ class ProductsService {
     products.splice(idx, 1);
     return { deleted: true };
   }
+
+  // PUBLIC_INTERFACE
+  /**
+   * Compute total inventory value as the sum of price * quantity for all products.
+   * @returns {number} total inventory value
+   */
+  totalValue() {
+    // Ensure numeric safety and deterministic rounding to 2 decimals for money-like values
+    const total = products.reduce((acc, p) => {
+      const price = typeof p.price === 'number' && !Number.isNaN(p.price) ? p.price : 0;
+      const qty = typeof p.quantity === 'number' && Number.isInteger(p.quantity) ? p.quantity : 0;
+      return acc + price * qty;
+    }, 0);
+    return Number(total.toFixed(2));
+  }
 }
 
 module.exports = new ProductsService();

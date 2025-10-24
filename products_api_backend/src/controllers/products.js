@@ -99,6 +99,27 @@ class ProductsController {
       message: 'Product deleted successfully',
     });
   }
+
+  // PUBLIC_INTERFACE
+  /**
+   * GET /products/balance - Retrieve total inventory value (sum of price * quantity)
+   */
+  balance(req, res) {
+    try {
+      const total = productsService.totalValue();
+      return res.status(200).json({
+        status: 'success',
+        message: 'Total inventory value computed successfully',
+        data: { total },
+      });
+    } catch (e) {
+      // Delegate to global error handler shape
+      return res.status(500).json({
+        status: 'error',
+        message: 'Failed to compute total inventory value',
+      });
+    }
+  }
 }
 
 module.exports = new ProductsController();

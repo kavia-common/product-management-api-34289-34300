@@ -12,6 +12,7 @@ Simple REST API for managing products with in-memory storage.
 - POST /products — Create a product
 - PUT /products/:id — Update a product
 - DELETE /products/:id — Delete a product
+- GET /products/balance — Total stock balance (sum of price × quantity across all products)
 
 ### Data model
 - id: number (auto-increment)
@@ -32,6 +33,9 @@ curl -s -X POST http://localhost:3001/products \
 Get by id:
 curl -s http://localhost:3001/products/1
 
+Get total stock balance:
+curl -s http://localhost:3001/products/balance
+
 Update:
 curl -s -X PUT http://localhost:3001/products/1 \
   -H "Content-Type: application/json" \
@@ -47,6 +51,13 @@ curl -s -X DELETE http://localhost:3001/products/1
   "status": "success",
   "message": "Product created successfully",
   "data": { "id": 1, "name": "Laptop", "price": 999.99, "quantity": 10 }
+}
+
+- Success (GET /products/balance):
+{
+  "status": "success",
+  "message": "Total inventory value computed successfully",
+  "data": { "total": 12345.67 }
 }
 
 - 400 Validation error:

@@ -66,6 +66,32 @@ router.get('/', productsController.list.bind(productsController));
 
 /**
  * @swagger
+ * /products/balance:
+ *   get:
+ *     summary: Get total stock balance (sum of price * quantity across all products)
+ *     description: Returns the total inventory value across all products.
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Total inventory value computed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: string, example: success }
+ *                 message: { type: string, example: Total inventory value computed successfully }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: number
+ *                       example: 12345.67
+ */
+router.get('/balance', productsController.balance.bind(productsController));
+
+/**
+ * @swagger
  * /products/{id}:
  *   get:
  *     summary: Get product by ID
