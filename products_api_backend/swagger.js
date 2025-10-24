@@ -7,9 +7,10 @@ const options = {
       title: 'My Express API',
       version: '1.0.0',
       description: 'A simple Express API documented with Swagger',
-    }
+    },
   },
-  apis: ['./src/routes/*.js'], // Path to the API docs
+  // Include all route files including products.js
+  apis: ['./src/routes/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
